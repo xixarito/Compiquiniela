@@ -8,11 +8,11 @@
     
     <!--TEMPORAL-->
 	<bean id="dataSource" class="org.springframework.jdbc.datasource.DriverManagerDataSource">
-      <property name="driverClassName" value="com.microsoft.sqlserver.jdbc.SQLServerDriver"/>
+      <property name="driverClassName" value="com.mysql.jdbc.Driver"/>
       <!-- <property name="url" value="jdbc:sqlserver://10.203.128.22:4010"/> -->
       <property name="url" value="jdbc:sqlserver://10.116.40.212:2431"/>
-      <property name="username"  value="Custodia"/>
-      <property name="password" value="Custodi0"/>
+      <property name="username"  value="abc"/>
+      <property name="password" value="abc"/>
     </bean>
     <!--TEMPORAL-->  
     
