@@ -8,7 +8,6 @@ import java.util.Map;
 import org.springframework.jdbc.core.RowMapper;
 import org.springframework.jdbc.core.simple.SimpleJdbcCall;
 
-import com.compiquiniela.bean.Jornada;
 import com.compiquiniela.bean.Liga;
 
 public class ObtieneInformacionDAO extends AccesoJDBCBaseDAO {

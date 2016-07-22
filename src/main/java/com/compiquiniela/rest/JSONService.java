@@ -9,12 +9,17 @@ import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
 
+import org.springframework.context.ApplicationContext;
+import org.springframework.context.support.ClassPathXmlApplicationContext;
+
 import com.compiquiniela.bean.Liga;
 import com.compiquiniela.dao.ObtieneInformacionDAO;
 	
 @Path("/service")
 public class JSONService {
-	ObtieneInformacionDAO info = new ObtieneInformacionDAO();
+	ApplicationContext context = new ClassPathXmlApplicationContext("applicationContext.xml");
+	ObtieneInformacionDAO info = (ObtieneInformacionDAO) context.getBean("obtieneInformacionDAO");
+	
 	@GET
 	@Path("/liga/{name}/{id}")
 	@Produces(MediaType.APPLICATION_JSON)
@@ -24,14 +29,14 @@ public class JSONService {
 		Liga liga = new Liga();
 		liga.setLigaId(id);
 		liga.setNomCorto(name);
-		liga.setDescripcion("Liga de Futbol Profesional de México");
+		liga.setDescripcion("Liga de Futbol Profesional de Mï¿½xico");
 		liga.setPaisId("Mexico");
 		
 		Liga liga2 = new Liga();
 		liga2.setLigaId(2);
 		liga2.setNomCorto("Liga BBVA");
-		liga2.setDescripcion("Liga de Futbol Profesional de España");
-		liga2.setPaisId("España");
+		liga2.setDescripcion("Liga de Futbol Profesional de Espaï¿½a");
+		liga2.setPaisId("Espaï¿½a");
 		
 		resultado.add(liga);
 		resultado.add(liga2);
@@ -44,6 +49,7 @@ public class JSONService {
 	@Path("/liga")
 	@Produces(MediaType.APPLICATION_JSON)
 	public ArrayList<Liga> getLiga() {
+		
 		ArrayList<Liga> resultado = new ArrayList<Liga>();
 		
 		resultado = info.getLiga();
