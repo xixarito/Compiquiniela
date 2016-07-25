@@ -1,6 +1,7 @@
 package com.compiquiniela.bean;
 
-public class Liga {
+public class Liga extends Error {
+	
 	private int ligaId;
 	private String nomCorto;
 	private String descripcion;
@@ -30,7 +31,5 @@ public class Liga {
 	public void setPaisId(String paisId) {
 		this.paisId = paisId;
 	}
-	
-	
 	
 }
