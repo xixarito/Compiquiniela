@@ -1,6 +1,6 @@
 package com.compiquiniela.bean;
 
-public class Jornada {
+public class Jornada extends Error {
 	private int jornadaId;
 	private int torneoId;
 	private String nomCorto;
