@@ -33,7 +33,7 @@ public class ObtieneInformacionDAO extends AccesoJDBCBaseDAO {
 						}
 					});
 			Map<String, Object> m = recuperaLiga.execute();
-			resultado = (ArrayList<Liga>) m;
+			resultado = (ArrayList<Liga>) m.get("lista");
 
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -60,7 +60,7 @@ public class ObtieneInformacionDAO extends AccesoJDBCBaseDAO {
 					});
 			SqlParameterSource in = new MapSqlParameterSource().addValue("LigaIdConsulta", ligaIdConsulta);
 			Map<String, Object> m = recuperaTorneo.execute(in);
-			resultado = (ArrayList<Torneo>) m;
+			resultado = (ArrayList<Torneo>) m.get("lista");
 		} catch (Exception e){
 			e.printStackTrace();
 			throw e;
@@ -86,7 +86,7 @@ public class ObtieneInformacionDAO extends AccesoJDBCBaseDAO {
 					});
 			SqlParameterSource in = new MapSqlParameterSource().addValue("TorneoIdConsulta", torneoIdConsulta);
 			Map<String, Object> m = recuperaJornada.execute(in);
-			resultado = (ArrayList<Jornada>) m;
+			resultado = (ArrayList<Jornada>) m.get("lista");
 		} catch (Exception e){
 			e.printStackTrace();
 			throw e;
@@ -115,7 +115,7 @@ public class ObtieneInformacionDAO extends AccesoJDBCBaseDAO {
 					});
 			SqlParameterSource in = new MapSqlParameterSource().addValue("JornadaIdConsulta", jornadaIdConsulta);
 			Map<String, Object> m = recuperaPartido.execute(in);
-			resultado = (ArrayList<Partido>) m;
+			resultado = (ArrayList<Partido>) m.get("lista");
 		} catch (Exception e){
 			e.printStackTrace();
 			throw e;
