@@ -43,6 +43,12 @@
 		    <artifactId>spring-web</artifactId>
 		</dependency>
 		
+		<dependency>
+		    <groupId>mysql</groupId>
+		    <artifactId>mysql-connector-java</artifactId>
+		    <version>5.1.6</version>
+		</dependency>
+
 	</dependencies>
 
 	<build>
@@ -54,6 +60,25 @@
 					<source>1.6</source>
 					<target>1.6</target>
 				</configuration>
+				<executions>
+		          <execution>
+		            <id>copy-context</id>
+		            <!-- here the phase you need -->
+		            <phase>build</phase>
+		            <goals>
+		              <goal>copy-context</goal>
+		            </goals>
+		            <configuration>
+		              <outputDirectory>/WEB-INF/classes/</outputDirectory>
+		              <resources>          
+		                <resource>
+		                  <directory>src/applicationContext.xml</directory>
+		                  <filtering>true</filtering>
+		                </resource>
+		              </resources>              
+		            </configuration>            
+		          </execution>
+		        </executions>
 			</plugin>
 		</plugins>
 	</build>
