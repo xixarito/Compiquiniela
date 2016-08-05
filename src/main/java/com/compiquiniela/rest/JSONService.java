@@ -13,6 +13,7 @@ import org.springframework.context.support.ClassPathXmlApplicationContext;
 
 import com.compiquiniela.bean.Jornada;
 import com.compiquiniela.bean.Liga;
+import com.compiquiniela.bean.Principal;
 import com.compiquiniela.bean.Partido;
 import com.compiquiniela.bean.Torneo;
 import com.compiquiniela.dao.ObtieneInformacionDAO;
@@ -21,13 +22,14 @@ import com.compiquiniela.dao.ObtieneInformacionDAO;
 public class JSONService {
 	ApplicationContext context = new ClassPathXmlApplicationContext("applicationContext.xml");
 	ObtieneInformacionDAO info = (ObtieneInformacionDAO) context.getBean("obtieneInformacionDAO");
+	Principal respuesta = new Principal();
 	
 	@GET
 	@Path("/liga")
 	@Produces(MediaType.APPLICATION_JSON)
-	public ArrayList<Liga> getLiga() {
+	public Principal getLiga() {
 		ArrayList<Liga> resultado = new ArrayList<Liga>();
-		
+
 		try {
 			resultado = info.getLiga();
 		} catch (Exception e) {
@@ -35,14 +37,16 @@ public class JSONService {
 			error.setError("Error en el servicio");
 			resultado.add(error);
 		}
-
-		return resultado;
+		
+		respuesta.setLigas(resultado);
+		
+		return respuesta;
 	}
 	
 	@GET
 	@Path("/torneo/{ligaIdConsulta}")
 	@Produces(MediaType.APPLICATION_JSON)
-	public ArrayList<Torneo> getTorneo(@PathParam("ligaIdConsulta") String ligaIdConsulta) {
+	public Principal getTorneo(@PathParam("ligaIdConsulta") String ligaIdConsulta) {
 		ArrayList<Torneo> resultado = new ArrayList<Torneo>();
 		
 		try {
@@ -53,13 +57,15 @@ public class JSONService {
 			resultado.add(error);
 		}
 
-		return resultado;
+		respuesta.setTorneos(resultado);
+		
+		return respuesta;
 	}
 	
 	@GET
 	@Path("/jornada/{torneoIdConsulta}")
 	@Produces(MediaType.APPLICATION_JSON)
-	public ArrayList<Jornada> getJornada(@PathParam("torneoIdConsulta") String torneoIdConsulta) {
+	public Principal getJornada(@PathParam("torneoIdConsulta") String torneoIdConsulta) {
 		ArrayList<Jornada> resultado = new ArrayList<Jornada>();
 		
 		try {
@@ -70,13 +76,16 @@ public class JSONService {
 			resultado.add(error);
 		}
 
-		return resultado;
+		respuesta.setJornadas(resultado);
+		
+		return respuesta;
+
 	}
 	
 	@GET
 	@Path("/partido/{jornadaIdConsulta}")
 	@Produces(MediaType.APPLICATION_JSON)
-	public ArrayList<Partido> getPartido(@PathParam("jornadaIdConsulta") String jornadaIdConsulta) {
+	public Principal getPartido(@PathParam("jornadaIdConsulta") String jornadaIdConsulta) {
 		ArrayList<Partido> resultado = new ArrayList<Partido>();
 		
 		try {
@@ -87,7 +96,9 @@ public class JSONService {
 			resultado.add(error);
 		}
 
-		return resultado;
+		respuesta.setPartidos(resultado);
+		
+		return respuesta;
 	}
 
 
