@@ -26,7 +26,7 @@ public class JSONService {
 	
 	@GET
 	@Path("/liga")
-	@Produces(MediaType.APPLICATION_JSON)
+	@Produces(MediaType.APPLICATION_JSON + ";charset=utf-8")
 	public Principal getLiga() {
 		ArrayList<Liga> resultado = new ArrayList<Liga>();
 
@@ -45,7 +45,7 @@ public class JSONService {
 	
 	@GET
 	@Path("/torneo/{ligaIdConsulta}")
-	@Produces(MediaType.APPLICATION_JSON)
+	@Produces(MediaType.APPLICATION_JSON + ";charset=utf-8")
 	public Principal getTorneo(@PathParam("ligaIdConsulta") String ligaIdConsulta) {
 		ArrayList<Torneo> resultado = new ArrayList<Torneo>();
 		
@@ -63,13 +63,15 @@ public class JSONService {
 	}
 	
 	@GET
-	@Path("/jornada/{torneoIdConsulta}")
-	@Produces(MediaType.APPLICATION_JSON)
-	public Principal getJornada(@PathParam("torneoIdConsulta") String torneoIdConsulta) {
+	@Path("/jornada/{ligaIdConsulta}/{torneoIdConsulta}")
+	@Produces(MediaType.APPLICATION_JSON + ";charset=utf-8")
+	public Principal getJornada(@PathParam("ligaIdConsulta") String ligaIdConsulta,
+			@PathParam("torneoIdConsulta") String torneoIdConsulta) {
 		ArrayList<Jornada> resultado = new ArrayList<Jornada>();
 		
 		try {
-			resultado = info.getJornada(Integer.parseInt(torneoIdConsulta.trim()));
+			resultado = info.getJornada(Integer.parseInt(ligaIdConsulta.trim()),
+					Integer.parseInt(torneoIdConsulta.trim()));
 		} catch (Exception e) {
 			Jornada error = new Jornada();
 			error.setError("Error en el servicio");
@@ -83,13 +85,17 @@ public class JSONService {
 	}
 	
 	@GET
-	@Path("/partido/{jornadaIdConsulta}")
-	@Produces(MediaType.APPLICATION_JSON)
-	public Principal getPartido(@PathParam("jornadaIdConsulta") String jornadaIdConsulta) {
+	@Path("/partido/{ligaIdConsulta}/{torneoIdConsulta}/{jornadaIdConsulta}")
+	@Produces(MediaType.APPLICATION_JSON + ";charset=utf-8")
+	public Principal getPartido(@PathParam("ligaIdConsulta") String ligaIdConsulta,
+			@PathParam("torneoIdConsulta") String torneoIdConsulta,
+			@PathParam("jornadaIdConsulta") String jornadaIdConsulta) {
 		ArrayList<Partido> resultado = new ArrayList<Partido>();
 		
 		try {
-			resultado = info.getPartido(Integer.parseInt(jornadaIdConsulta.trim()));
+			resultado = info.getPartido(Integer.parseInt(ligaIdConsulta.trim()),
+					Integer.parseInt(torneoIdConsulta.trim()),
+					Integer.parseInt(jornadaIdConsulta.trim()));
 		} catch (Exception e) {
 			Partido error = new Partido();
 			error.setError("Error en el servicio");

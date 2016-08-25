@@ -14,9 +14,10 @@ import com.compiquiniela.bean.Jornada;
 import com.compiquiniela.bean.Liga;
 import com.compiquiniela.bean.Partido;
 import com.compiquiniela.bean.Torneo;
+import com.compiquiniela.util.Util;
 
 public class ObtieneInformacionDAO extends AccesoJDBCBaseDAO {
-	
+	Util formatea = new Util();
 	public ArrayList<Liga> getLiga() throws Exception {
 		ArrayList<Liga> resultado = new ArrayList<Liga>();
 		try{
@@ -68,7 +69,7 @@ public class ObtieneInformacionDAO extends AccesoJDBCBaseDAO {
 		return resultado;
 	}
 	
-	public ArrayList<Jornada> getJornada(int torneoIdConsulta) throws Exception {
+	public ArrayList<Jornada> getJornada(int ligaIdConsulta, int torneoIdConsulta) throws Exception {
 		ArrayList<Jornada> resultado = new ArrayList<Jornada>();
 		try{
 			SimpleJdbcCall recuperaJornada = new SimpleJdbcCall(dataSource).withProcedureName("comp_spc_jornada")
@@ -84,7 +85,9 @@ public class ObtieneInformacionDAO extends AccesoJDBCBaseDAO {
 							return lista;
 						}
 					});
-			SqlParameterSource in = new MapSqlParameterSource().addValue("TorneoIdConsulta", torneoIdConsulta);
+			SqlParameterSource in = new MapSqlParameterSource()
+				.addValue("LigaIdConsulta", ligaIdConsulta)
+				.addValue("TorneoIdConsulta", torneoIdConsulta);
 			Map<String, Object> m = recuperaJornada.execute(in);
 			resultado = (ArrayList<Jornada>) m.get("lista");
 		} catch (Exception e){
@@ -95,7 +98,7 @@ public class ObtieneInformacionDAO extends AccesoJDBCBaseDAO {
 		return resultado;
 	}
 	
-	public ArrayList<Partido> getPartido(int jornadaIdConsulta) throws Exception {
+	public ArrayList<Partido> getPartido(int ligaIdConsulta, int torneoIdConsulta, int jornadaIdConsulta) throws Exception {
 		ArrayList<Partido> resultado = new ArrayList<Partido>();
 		try{
 			SimpleJdbcCall recuperaPartido = new SimpleJdbcCall(dataSource).withProcedureName("comp_spc_partido")
@@ -108,12 +111,18 @@ public class ObtieneInformacionDAO extends AccesoJDBCBaseDAO {
 							lista.setEquipoLocalId(rs.getString("EquipoLocalId"));
 							lista.setEquipoVisitanteId(rs.getString("EquipoVisitanteId"));
 							lista.setEstadioId(rs.getString("EstadioId"));
-							lista.setFecha(rs.getString("Fecha"));
-							lista.setHora(rs.getString("Hora"));
+							lista.setFecha(formatea.FormateDate(rs.getString("Fecha")));
+							lista.setHora(formatea.FormateHora(rs.getString("Hora")));
+							lista.setBandResultado(rs.getInt("BandResultado"));
+							lista.setResEquipoLocal(rs.getInt("resEquipoLocal"));
+							lista.setResEquipoVisitante(rs.getInt("resEquipoVisitante"));
 							return lista;
 						}
 					});
-			SqlParameterSource in = new MapSqlParameterSource().addValue("JornadaIdConsulta", jornadaIdConsulta);
+			SqlParameterSource in = new MapSqlParameterSource()
+				.addValue("LigaIdConsulta", ligaIdConsulta)
+				.addValue("TorneoIdConsulta", torneoIdConsulta)
+				.addValue("JornadaIdConsulta", jornadaIdConsulta);
 			Map<String, Object> m = recuperaPartido.execute(in);
 			resultado = (ArrayList<Partido>) m.get("lista");
 		} catch (Exception e){

@@ -8,6 +8,9 @@ public class Partido extends Error {
 	private String estadioId;
 	private String fecha;
 	private String hora;
+	private int bandResultado;
+	private int resEquipoLocal;
+	private int resEquipoVisitante;
 	
 	public int getPartidoId() {
 		return partidoId;
@@ -50,6 +53,24 @@ public class Partido extends Error {
 	}
 	public void setHora(String hora) {
 		this.hora = hora;
+	}
+	public int getBandResultado() {
+		return bandResultado;
+	}
+	public void setBandResultado(int bandResultado) {
+		this.bandResultado = bandResultado;
+	}
+	public int getResEquipoLocal() {
+		return resEquipoLocal;
+	}
+	public void setResEquipoLocal(int resEquipoLocal) {
+		this.resEquipoLocal = resEquipoLocal;
+	}
+	public int getResEquipoVisitante() {
+		return resEquipoVisitante;
+	}
+	public void setResEquipoVisitante(int resEquipoVisitante) {
+		this.resEquipoVisitante = resEquipoVisitante;
 	}
 	
 }
