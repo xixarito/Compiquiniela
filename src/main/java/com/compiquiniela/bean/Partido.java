@@ -12,6 +12,16 @@ public class Partido extends Error {
 	private int resEquipoLocal;
 	private int resEquipoVisitante;
 	
+	public void guardaPartido(String fecha, String equipoLocalId, String equipoVisitanteId,
+			String hora, int resEquipoLocal, int resEquipoVisitante){
+		this.equipoLocalId = equipoLocalId;     
+		this.equipoVisitanteId = equipoVisitanteId;
+		this.fecha = fecha;
+		this.hora = hora;
+		this.resEquipoLocal = resEquipoLocal;
+		this.resEquipoVisitante = resEquipoVisitante;
+	}
+	
 	public int getPartidoId() {
 		return partidoId;
 	}
